@@ -1,0 +1,3 @@
+MONGO_URI = "mongodb+srv://<Fill Based on your deployment>"
+COLLECTION_NAME = "<Create and Fill Based on your deployment>"
+GOOGLE_API_KEYS=API_KEY_1,API_KEY_2,API_KEY_3
