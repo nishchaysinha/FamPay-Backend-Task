@@ -1,4 +1,4 @@
-from __main__ import app
+from app import app
 
 from flask_pymongo import PyMongo
 from utils.config import COLLECTION_NAME

@@ -1,4 +1,4 @@
-from __main__ import app, collection
+from app import app, collection
 from flask import request
 from bson.json_util import dumps
 

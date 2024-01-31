@@ -2,7 +2,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from utils.config import YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, GOOGLE_API_KEYS, QUERY, TIME_DELTA
 import datetime
-from __main__ import collection
+from app import collection
+
 
 def fetch_youtube_videos():
     for key in GOOGLE_API_KEYS:
