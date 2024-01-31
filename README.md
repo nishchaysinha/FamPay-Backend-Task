@@ -5,10 +5,10 @@
 # Try the API
 [Try the API Here](https://fampay-backend-task-nishchay.onrender.com/ping)
 ```shell
-curl 'https://fampay-backend-task-nishchay.onrender.com/videos?page=1'
+>> curl 'https://fampay-backend-task-nishchay.onrender.com/videos?page=1'
 Adjust the page number as per your need
 
-curl 'https://fampay-backend-task-nishchay.onrender.com/ping'
+>> curl 'https://fampay-backend-task-nishchay.onrender.com/ping'
 Try this to test if the API is active
 ```
 
@@ -58,7 +58,7 @@ if using gunicorn then:
 ```bash
 Navigate to the source folder and execute the following command:
 
-pip3 install -r requirements.txt
+>> pip3 install -r requirements.txt
 ```
 
 If using docker then:
@@ -66,7 +66,7 @@ If using docker then:
 ```bash
 Edit your .env beforehand(Instructions Below)
 
-docker build -t <Enter Name of Image> .
+>> docker build -t <Enter Name of Image> .
 
 run the docker image according to your setup
 ```
@@ -182,7 +182,7 @@ TIME_DELAY = "Delay between each schedule"
 run this command to execute the code
 
 ```bash
-gunicorn app:app
+>> gunicorn app:app
 ```
 
 # Results
