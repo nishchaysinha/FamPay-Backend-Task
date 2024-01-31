@@ -8,6 +8,7 @@ collection = get_db()
 
 import utils.scheduler as scheduler
 import routes.videos
+import routes.ping
 
 
 scheduler.start_scheduler()
