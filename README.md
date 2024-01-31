@@ -3,7 +3,7 @@
 [You can also Checkout the documentation here](https://shiny-chauffeur-91e.notion.site/FamPay-Backend-Task-3e370ff4fa584341b16abb2815c104d7?pvs=4)
 
 # Try the API
-[Try the API Here](https://fampay-backend-task-nishchay.onrender.com)
+[Try the API Here](https://fampay-backend-task-nishchay.onrender.com/ping)
 ```shell
 curl 'https://fampay-backend-task-nishchay.onrender.com/videos?page=1'
 Adjust the page number as per your need
