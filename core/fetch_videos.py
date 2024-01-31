@@ -13,7 +13,7 @@ def fetch_youtube_videos():
                 q=QUERY,
                 type="video",
                 part="id,snippet",
-                maxResults=25,
+                maxResults=100,
                 publishedAfter=(datetime.datetime.utcnow() - datetime.timedelta(seconds=TIME_DELTA)).isoformat('T') + 'Z', 
                 #Having an issue where providing a timedelta gives me 0 acceptable results i will try increasing the time delta in hopes for it to work 
             ).execute()
