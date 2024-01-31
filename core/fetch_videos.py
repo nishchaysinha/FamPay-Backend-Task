@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
-from utils.config import YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, GOOGLE_API_KEYS
+from utils.config import YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, GOOGLE_API_KEYS, QUERY, TIME_DELTA
 import datetime
 from __main__ import collection
 
@@ -9,13 +9,15 @@ def fetch_youtube_videos():
         youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=key)
         try:
             search_response = youtube.search().list(
-                q="football",  # Replace with your search query
+                q=QUERY,  # Replace with your search query
                 type="video",
                 part="id,snippet",
-                maxResults=10
+                maxResults=10,
+                publishedAfter=(datetime.datetime.utcnow() - datetime.timedelta(seconds=TIME_DELTA)).isoformat('T') + 'Z',
             ).execute()
+            print(f"Successful fetch from YouTube API: {key}") # These are just for demo purposes to verify if the multiple keys are working
         except HttpError as e:
-            print(f"Failed to fetch videos from YouTube API: {e}")
+            print(f"Failed to fetch videos from YouTube API: {key}, Using next available key") # These are just for demo purposes to verify if the multiple keys are working
             # If quota limit exceeds, switch to the next key
             if 'quotaExceeded' in str(e):
                 continue
