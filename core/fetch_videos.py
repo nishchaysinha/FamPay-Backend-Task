@@ -10,31 +10,30 @@ def fetch_youtube_videos():
         youtube = build(YOUTUBE_API_SERVICE_NAME, YOUTUBE_API_VERSION, developerKey=key)
         try:
             search_response = youtube.search().list(
-                q=QUERY,  # Replace with your search query
+                q=QUERY,
                 type="video",
                 part="id,snippet",
-                maxResults=10,
-                publishedAfter=(datetime.datetime.utcnow() - datetime.timedelta(seconds=TIME_DELTA)).isoformat('T') + 'Z',
+                maxResults=25,
+                publishedAfter=(datetime.datetime.utcnow() - datetime.timedelta(seconds=TIME_DELTA)).isoformat('T') + 'Z', 
+                #Having an issue where providing a timedelta gives me 0 acceptable results i will try increasing the time delta in hopes for it to work 
             ).execute()
-            print(f"Successful fetch from YouTube API: {key}") # These are just for demo purposes to verify if the multiple keys are working
+
+            for search_result in search_response.get('items', []):
+                video_data = {
+                    '_id': search_result['id']['videoId'],
+                    'title': search_result['snippet']['title'],
+                    'description': search_result['snippet']['description'],
+                    'publishedAt': search_result['snippet']['publishedAt'],
+                    'thumbnails': search_result['snippet']['thumbnails'],
+                    # Add any other fields you need
+                }
+                collection.replace_one({'_id': video_data['_id']}, video_data, upsert=True)
+
+            print(f"Successful fetch from YouTube API: {key}")
         except HttpError as e:
-            print(f"Failed to fetch videos from YouTube API: {key}, Using next available key") # These are just for demo purposes to verify if the multiple keys are working
-            # If quota limit exceeds, switch to the next key
+            print(f"Failed to fetch videos from YouTube API: {key}, Using next available key")
             if 'quotaExceeded' in str(e):
                 continue
             else:
-                # If it's another HttpError, continue to the next iteration
+                print(f"Error details: {str(e)}")
                 continue
-
-        for search_result in search_response.get('items', []):
-            try:
-                video = {
-                    "_id": search_result['id']['videoId'],
-                    "title": search_result['snippet']['title'],
-                    "description": search_result['snippet']['description'],
-                    "published_at": datetime.datetime.strptime(search_result['snippet']['publishedAt'], "%Y-%m-%dT%H:%M:%SZ"),
-                    "thumbnail_url": search_result['snippet']['thumbnails']['default']['url']
-                }
-                collection.replace_one({"_id": video["_id"]}, video, upsert=True)
-            except Exception as e:
-                print(f"Failed to process video: {e}")
